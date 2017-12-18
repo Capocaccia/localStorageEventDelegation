@@ -1,6 +1,7 @@
   const addItems = document.querySelector('.add-items');
   const itemsList = document.querySelector('.plates');
   const items = JSON.parse(localStorage.getItem('items')) || [];
+  const toggleAll = document.querySelector('.toggleAll');
 
   function toggleCheck(e){
   	console.log(e.target)
@@ -39,9 +40,17 @@
 	populateList(items, itemsList);
   }
 
+  function toggleAllDone(e){
+  	e.preventDefault();
+  	items.checked == undefined ? items.checked = true : items.checked = !items.checked;
+  	items.forEach((item, i) => items.checked ? item.done = 'checked' : item.done = '');
+  	populateList(items, itemsList); 
+  }
+
+  toggleAll.addEventListener('click', toggleAllDone);
+
   itemsList.addEventListener('click', toggleDone);
 
   populateList(items, itemsList);
 
   addItems.addEventListener('submit', addItem);
-
